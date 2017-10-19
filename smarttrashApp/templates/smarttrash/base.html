@@ -1,0 +1,24 @@
+{% load static %}
+
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery=1 %}
+    {% bootstrap_messages %}
+    <link rel="stylesheet" type="text/css" href="{% static 'smarttrash/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'smarttrash/bootstrap-colorselector.css' %}"/>
+</head>
+<body>
+
+<div class="content container" style="margin-top: 50px;">
+    <div class="row">
+        <div class="col-md-12">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
