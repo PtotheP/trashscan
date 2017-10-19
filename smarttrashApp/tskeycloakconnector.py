@@ -20,7 +20,12 @@ class TSKeyCloakConnector:
         self.refresh_token = refresh_token
 
     def access_token(self):
-        cred = client.OAuth2Credentials(self.at, self.__CLIENT_ID, self.__CLIENT_SECRET, self.refresh_token(),
+        refresh_token = self.refresh_token()
+        if not refresh_token:
+            print('no refresh token')
+            raise ValueError('no refresh token')
+
+        cred = client.OAuth2Credentials(self.at, self.__CLIENT_ID, self.__CLIENT_SECRET, refresh_token,
                                         self.at_expiry, self.__TOKEN_URI, None, revoke_uri=self.__REVOKE_URI)
         print(cred.token_expiry)
         if not cred.access_token or cred.access_token_expired:
@@ -35,7 +40,8 @@ class TSKeyCloakConnector:
     def logout(self):
         cred = client.OAuth2Credentials(self.at, self.__CLIENT_ID, self.__CLIENT_SECRET, self.refresh_token(),
                                         self.at_expiry, self.__TOKEN_URI, None, revoke_uri=self.__REVOKE_URI)
-        cred.revoke()
+        # todo: remove
+        cred.revoke(httplib2.Http(disable_ssl_certificate_validation=True))
 
     @staticmethod
     def print_decoded_token(token):
