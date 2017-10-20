@@ -1,6 +1,10 @@
 import http.client
 import json
-import urllib
+
+try:
+    from urllib import quote  # Python 2.X
+except ImportError:
+    from urllib.parse import quote  # Python 3+
 
 
 class TSBackendConnector:
@@ -65,11 +69,11 @@ class TSBackendConnector:
 
         try:
             conn = http.client.HTTPSConnection('kauflandstaging.azure-api.net')
-            conn.request("POST", "%s/api/v1/lists/%s/items" % (self.__apiURL, urllib.quote_plus(list_id)),
-                         json.dumps({
+            conn.request("POST", "%s/api/v1/lists/%s/items" % (self.__apiURL, quote(list_id)),
+                         json.dumps([{
                              'title': title,
                              'subtitle': subtitle
-                         }), headers)
+                         }]), headers)
             response = conn.getresponse()
             data = response.read()
             print(data)

@@ -23,7 +23,7 @@
             </li>
             <li class="rl-multi-step-item active">
                 <div class="rl-item-wrap">
-                     <a href="./setup_list">
+                    <a href="./setup_list">
                         <p class="rl-item-title">List</p>
                     </a>
                 </div>
@@ -38,18 +38,32 @@
         </ul>
     </div>
     <div class="jumbotron">
-        <h1 class="display-3">WLAN</h1>
-        <p class="lead">Establish a connection between your Trash Scanner and your wireless home-network.</p>
+        <div class="row">
+            <div class="col-sm-2 col-md-1">
+                <div style="margin-top: 5px"></div>
+                <h1 class="display-4"><i class="fa fa-wifi" aria-hidden="true"></i></h1>
+            </div>
+            <div class="col-sm-10 col-md-11">
+                <h1 class="display-4">WLAN</h1>
+                <p class="lead">Establish a connection between your Trash Scanner and your wireless home-network.</p>
+            </div>
+        </div>
         <div class="row" style="margin-top: 45px; margin-bottom: 45px;">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <a class="float-right" href="./?edit=true">edit</a>
                 <form action="./" method="post" class="form">
                     {% csrf_token %}
                     {% bootstrap_form form layout='inline' %}
                     {% if edit %}
                         {% buttons %}
                             <button type="submit" class="btn btn-primary float-right">Save</button>
+                            <a style="margin-right: 10px" class="btn btn-primary float-right" href="./?edit=false"
+                               role="button">cancel</a>
+                        {% endbuttons %}
+                    {% else %}
+                        {% buttons %}
+                            <a class="btn btn-primary float-right" href="./?edit=true"
+                               role="button">edit</a>
                         {% endbuttons %}
                     {% endif %}
                 </form>

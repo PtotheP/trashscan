@@ -39,8 +39,16 @@
         </ul>
     </div>
     <div class="jumbotron">
-        <h1 class="display-3">Shopping List</h1>
-        <p class="lead">Select your Shopping List or create a new one for the scanned elements.</p>
+        <div class="row">
+            <div class="col-sm-2 col-md-1">
+                <div style="margin-top: 5px"></div>
+                <h1 class="display-4"><i class="fa fa-th-list" aria-hidden="true"></i></h1>
+            </div>
+            <div class="col-sm-10 col-md-11">
+                <h1 class="display-4">Shopping List</h1>
+                <p class="lead">Select your Shopping List or create a new one for the scanned elements.</p>
+            </div>
+        </div>
         {% if error %}
             <div class="alert alert-danger" style="margin-top: 45px; margin-bottom: 45px;">
                 <strong>Error!</strong> Could not load availiable lists. Please register your account with your device:

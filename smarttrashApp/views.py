@@ -140,6 +140,16 @@ def create_list(request):
         return HttpResponseRedirect('./setup_list')
 
 
+def add_item(request):
+    if request.method == 'POST':
+        form = Form(request.POST)
+        print(form.data.get("title"))
+        connector.add_list_elem(configurator.getKAppList(), form.data.get("title"), form.data.get("subtitle"))
+        return HttpResponseRedirect('./add_item')
+    else:
+        return render(request, 'smarttrash/add_item.html')
+
+
 class NameForm(forms.Form):
     ssid = forms.CharField(label='SSID', max_length=100)
     password = forms.CharField(label='Password', min_length=8, widget=forms.PasswordInput(render_value=True))

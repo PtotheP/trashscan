@@ -72,7 +72,7 @@ class TSConfigurator(object):
             self.__KAPPKeycloak_Client_ID = config.get(self.__OPT_SECTION_INTEGRATION,
                                                        self.__OPT_K_APP_KEYCLOAK_CLIENT_ID)
             self.__KAPPKeycloak_CLIENT_SECRET = config.get(self.__OPT_SECTION_INTEGRATION,
-                                                       self.__OPT_K_APP_KEYCLOAK_CLIENT_SECRET)
+                                                           self.__OPT_K_APP_KEYCLOAK_CLIENT_SECRET)
             self.__KAPPBackend_Base = config.get(self.__OPT_SECTION_INTEGRATION, self.__OPT_K_APP_BACKEND_BASE)
             self.__KAPPBackend_API = config.get(self.__OPT_SECTION_INTEGRATION, self.__OPT_K_APP_BACKEND_API)
             self.__KAPPBackend_Subscription = config.get(self.__OPT_SECTION_INTEGRATION,
