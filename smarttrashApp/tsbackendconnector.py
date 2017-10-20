@@ -34,49 +34,40 @@ class TSBackendConnector:
         headers = self.base_headers()
         self.add_json_to_header(headers)
 
-        try:
-            conn = http.client.HTTPSConnection(self.__BASE_URL)
-            conn.request("POST", "%s/api/v1/lists" % self.__apiURL, json.dumps(body), headers)
-            response = conn.getresponse()
-            data = response.read()
-            conn.close()
-            return json.loads(data)
-        except Exception as e:
-            print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        conn = http.client.HTTPSConnection(self.__BASE_URL)
+        conn.request("POST", "%s/api/v1/lists" % self.__apiURL, json.dumps(body), headers)
+        response = conn.getresponse()
+        data = response.read().decode('utf8')
+        conn.close()
+        return json.loads(data)
 
     def get_lists(self):
         headers = self.base_headers()
 
-        try:
-            conn = http.client.HTTPSConnection('kauflandstaging.azure-api.net')
-            conn.request("GET", "%s/api/v1/lists" % self.__apiURL, "", headers)
-            response = conn.getresponse()
-            data = response.read()
-            conn.close()
-            lists = json.loads(data)
+        conn = http.client.HTTPSConnection('kauflandstaging.azure-api.net')
+        conn.request("GET", "%s/api/v1/lists" % self.__apiURL, "", headers)
+        response = conn.getresponse()
+        data = response.read().decode('utf8')
+        conn.close()
+        lists = json.loads(data)
 
-            def id_lambda(x):
-                x["id"] = x.get("_id")
-                return x
+        def id_lambda(x):
+            x["id"] = x.get("_id")
+            return x
 
-            return map(id_lambda, lists)
-        except Exception as e:
-            print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        return map(id_lambda, lists)
 
     def add_list_elem(self, list_id, title, subtitle):
         headers = self.base_headers()
         self.add_json_to_header(headers)
 
-        try:
-            conn = http.client.HTTPSConnection('kauflandstaging.azure-api.net')
-            conn.request("POST", "%s/api/v1/lists/%s/items" % (self.__apiURL, quote(list_id)),
-                         json.dumps([{
-                             'title': title,
-                             'subtitle': subtitle
-                         }]), headers)
-            response = conn.getresponse()
-            data = response.read()
-            print(data)
-            return json.loads(data)
-        except Exception as e:
-            print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        conn = http.client.HTTPSConnection('kauflandstaging.azure-api.net')
+        conn.request("POST", "%s/api/v1/lists/%s/items" % (self.__apiURL, quote(list_id)),
+                     json.dumps([{
+                         'title': title,
+                         'subtitle': subtitle
+                     }]), headers)
+        response = conn.getresponse()
+        data = response.read().decode('utf8')
+        print(data)
+        return json.loads(data)
