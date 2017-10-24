@@ -1,4 +1,5 @@
 from base64 import urlsafe_b64decode
+import base64
 import httplib2
 from oauth2client import client
 
@@ -43,10 +44,10 @@ class TSKeyCloakConnector:
         # todo: remove
         cred.revoke(httplib2.Http(disable_ssl_certificate_validation=True))
 
-    @staticmethod
-    def print_decoded_token(token):
+    def print_decoded_token(self, token):
         token = token.split(".")[1]
         missing_padding = len(token) % 4
         if missing_padding != 0:
             token += b'=' * (4 - missing_padding)
-        print(urlsafe_b64decode(token))
+        # print(urlsafe_b64decode(token))
+        print(base64.b64decode(token))
