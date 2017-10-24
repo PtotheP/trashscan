@@ -130,6 +130,21 @@ def setup_configuration(request):
         return render(request, 'smarttrash/setup_configuration.html', {'form': form})
 
 
+def setup_show_barcode(request):
+    code = request.GET.get('code')
+    if code == "shutdown":
+        return render(request, 'smarttrash/setup_configuration_barcode.html',
+                      {'barcode': 'smarttrash/shutdown.gif', 'title': 'Shutdown'})
+    elif code == "wifimode":
+        return render(request, 'smarttrash/setup_configuration_barcode.html',
+                      {'barcode': 'smarttrash/wifimode.gif', 'title': 'WiFi-Mode'})
+    elif code == "reset":
+        return render(request, 'smarttrash/setup_configuration_barcode.html',
+                      {'barcode': 'smarttrash/reset.gif', 'title': 'Reset'})
+
+    return HttpResponseRedirect('./setup_configuration')
+
+
 def create_list(request):
     if request.method == 'POST':
         form = Form(request.POST)
