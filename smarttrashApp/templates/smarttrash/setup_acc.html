@@ -23,6 +23,30 @@
             alert('failed to initialize');
         });
 
+        function logout() {
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+                    if (xmlhttp.status == 200) {
+                        keycloak.logout()
+                    }
+                    else if (xmlhttp.status == 400) {
+                        alert('There was an error 400');
+                    }
+                    else {
+                        alert('something else other than 200 was returned');
+
+                    }
+                }
+            };
+
+            xmlhttp.open("GET", "./logout", true);
+            xmlhttp.send();
+        }
+
+
         function post(path, params, method) {
             method = method || "post"; // Set method to post by default if not specified.
 
@@ -42,6 +66,30 @@
                     form.appendChild(hiddenField);
                 }
             }
+            form.submit();
+        }
+
+        function post_hidden(path, params, method) {
+            method = method || "post"; // Set method to post by default if not specified.
+
+            // The rest of this code assumes you are not using a library.
+            // It can be made less wordy if you use one.
+            var form = document.createElement("form");
+            form.setAttribute("method", method);
+            form.setAttribute("action", path);
+
+            for (var key in params) {
+                if (params.hasOwnProperty(key)) {
+                    var hiddenField = document.createElement("input");
+                    hiddenField.setAttribute("type", "hidden");
+                    hiddenField.setAttribute("name", key);
+                    hiddenField.setAttribute("value", params[key]);
+
+                    form.appendChild(hiddenField);
+                }
+            }
+
+            document.body.appendChild(form);
             form.submit();
         }
 
@@ -111,6 +159,7 @@
                             </div>
                         </div>
                     </form>
+                    <button class="btn btn-primary btn-lg float-right" onclick="logout()">Logout</button>
                 </div>
             </div>
         {% endif %}

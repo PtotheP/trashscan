@@ -154,6 +154,12 @@ def create_list(request):
     else:
         return HttpResponseRedirect('./setup_list')
 
+def logout(request):
+    configurator.resetAccount()
+    configurator.writeConfiguration()
+    print("reset account")
+    return HttpResponse()
+
 
 def add_item(request):
     if request.method == 'POST':

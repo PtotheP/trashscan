@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^create_list$', views.create_list, name='create_list'),
     url(r'^add_item$', views.add_item, name='add_item'),
     url(r'^test$', views.test, name='test'),
+    url(r'^logout$', views.logout, name='logout'),
 ]
